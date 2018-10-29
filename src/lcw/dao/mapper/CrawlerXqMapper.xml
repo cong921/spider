@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="lcw.dao.mapper.CrawlerXqMapper" >
+  <resultMap id="BaseResultMap" type="lcw.po.CrawlerXq" >
+    <id column="XQ_ID" property="xqId" jdbcType="BIGINT" />
+    <result column="XQ_URL" property="xqUrl" jdbcType="VARCHAR" />
+    <result column="XQ_URL_MD5" property="xqUrlMd5" jdbcType="VARCHAR" />
+    <result column="XQ_TITLE" property="xqTitle" jdbcType="VARCHAR" />
+    <result column="XQ_PUDATE" property="xqPudate" jdbcType="DATE" />
+    <result column="ZD_NAME" property="zdName" jdbcType="VARCHAR" />
+    <result column="LM_NAME" property="lmName" jdbcType="VARCHAR" />
+    <result column="SJFL" property="sjfl" jdbcType="VARCHAR" />
+    <result column="LOAD_TIME" property="loadTime" jdbcType="TIMESTAMP" />
+    <result column="XQ_AURHOR" property="xqAurhor" jdbcType="VARCHAR" />
+    <result column="XQ_EXTEND_ONE" property="xqExtendOne" jdbcType="VARCHAR" />
+    <result column="XQ_EXTEND_TWO" property="xqExtendTwo" jdbcType="VARCHAR" />
+    <result column="KEY_WORD" property="keyWord" jdbcType="VARCHAR" />
+    <result column="IS_SIMTITLE" property="isSimtitle" jdbcType="INTEGER" />
+    <result column="IS_EXTEURL" property="isExteurl" jdbcType="INTEGER" />
+    <result column="LM_TOP" property="lmTop" jdbcType="VARCHAR" />
+    <result column="STA" property="sta" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="lcw.po.CrawlerXqWithBLOBs" extends="BaseResultMap" >
+    <result column="XQ_CONTENT" property="xqContent" jdbcType="LONGVARCHAR" />
+    <result column="XQ_EXTEND_THREE" property="xqExtendThree" jdbcType="LONGVARCHAR" />
+    <result column="XQ_EXTEND_FOUR" property="xqExtendFour" jdbcType="LONGVARCHAR" />
+    <result column="XQ_EXTEND_FIVE" property="xqExtendFive" jdbcType="LONGVARCHAR" />
+    <result column="XQ_EXTEND_SIXE" property="xqExtendSixe" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    XQ_ID, XQ_URL, XQ_URL_MD5, XQ_TITLE, XQ_PUDATE, ZD_NAME, LM_NAME, SJFL, LOAD_TIME, 
+    XQ_AURHOR, XQ_EXTEND_ONE, XQ_EXTEND_TWO, KEY_WORD, IS_SIMTITLE, IS_EXTEURL, LM_TOP, 
+    STA
+  </sql>
+  <sql id="Blob_Column_List" >
+    XQ_CONTENT, XQ_EXTEND_THREE, XQ_EXTEND_FOUR, XQ_EXTEND_FIVE, XQ_EXTEND_SIXE
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="lcw.po.CrawlerXqExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from crawler_xq
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="lcw.po.CrawlerXqExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from crawler_xq
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from crawler_xq
+    where XQ_ID = #{xqId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from crawler_xq
+    where XQ_ID = #{xqId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="lcw.po.CrawlerXqExample" >
+    delete from crawler_xq
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="lcw.po.CrawlerXqWithBLOBs" >
+    insert into crawler_xq (XQ_ID, XQ_URL, XQ_URL_MD5, 
+      XQ_TITLE, XQ_PUDATE, ZD_NAME, 
+      LM_NAME, SJFL, LOAD_TIME, 
+      XQ_AURHOR, XQ_EXTEND_ONE, XQ_EXTEND_TWO, 
+      KEY_WORD, IS_SIMTITLE, IS_EXTEURL, 
+      LM_TOP, STA, XQ_CONTENT, 
+      XQ_EXTEND_THREE, XQ_EXTEND_FOUR, XQ_EXTEND_FIVE, 
+      XQ_EXTEND_SIXE)
+    values (#{xqId,jdbcType=BIGINT}, #{xqUrl,jdbcType=VARCHAR}, #{xqUrlMd5,jdbcType=VARCHAR}, 
+      #{xqTitle,jdbcType=VARCHAR}, #{xqPudate,jdbcType=DATE}, #{zdName,jdbcType=VARCHAR}, 
+      #{lmName,jdbcType=VARCHAR}, #{sjfl,jdbcType=VARCHAR}, #{loadTime,jdbcType=TIMESTAMP}, 
+      #{xqAurhor,jdbcType=VARCHAR}, #{xqExtendOne,jdbcType=VARCHAR}, #{xqExtendTwo,jdbcType=VARCHAR}, 
+      #{keyWord,jdbcType=VARCHAR}, #{isSimtitle,jdbcType=INTEGER}, #{isExteurl,jdbcType=INTEGER}, 
+      #{lmTop,jdbcType=VARCHAR}, #{sta,jdbcType=INTEGER}, #{xqContent,jdbcType=LONGVARCHAR}, 
+      #{xqExtendThree,jdbcType=LONGVARCHAR}, #{xqExtendFour,jdbcType=LONGVARCHAR}, #{xqExtendFive,jdbcType=LONGVARCHAR}, 
+      #{xqExtendSixe,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="lcw.po.CrawlerXqWithBLOBs" >
+    insert into crawler_xq
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="xqId != null" >
+        XQ_ID,
+      </if>
+      <if test="xqUrl != null" >
+        XQ_URL,
+      </if>
+      <if test="xqUrlMd5 != null" >
+        XQ_URL_MD5,
+      </if>
+      <if test="xqTitle != null" >
+        XQ_TITLE,
+      </if>
+      <if test="xqPudate != null" >
+        XQ_PUDATE,
+      </if>
+      <if test="zdName != null" >
+        ZD_NAME,
+      </if>
+      <if test="lmName != null" >
+        LM_NAME,
+      </if>
+      <if test="sjfl != null" >
+        SJFL,
+      </if>
+      <if test="loadTime != null" >
+        LOAD_TIME,
+      </if>
+      <if test="xqAurhor != null" >
+        XQ_AURHOR,
+      </if>
+      <if test="xqExtendOne != null" >
+        XQ_EXTEND_ONE,
+      </if>
+      <if test="xqExtendTwo != null" >
+        XQ_EXTEND_TWO,
+      </if>
+      <if test="keyWord != null" >
+        KEY_WORD,
+      </if>
+      <if test="isSimtitle != null" >
+        IS_SIMTITLE,
+      </if>
+      <if test="isExteurl != null" >
+        IS_EXTEURL,
+      </if>
+      <if test="lmTop != null" >
+        LM_TOP,
+      </if>
+      <if test="sta != null" >
+        STA,
+      </if>
+      <if test="xqContent != null" >
+        XQ_CONTENT,
+      </if>
+      <if test="xqExtendThree != null" >
+        XQ_EXTEND_THREE,
+      </if>
+      <if test="xqExtendFour != null" >
+        XQ_EXTEND_FOUR,
+      </if>
+      <if test="xqExtendFive != null" >
+        XQ_EXTEND_FIVE,
+      </if>
+      <if test="xqExtendSixe != null" >
+        XQ_EXTEND_SIXE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="xqId != null" >
+        #{xqId,jdbcType=BIGINT},
+      </if>
+      <if test="xqUrl != null" >
+        #{xqUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="xqUrlMd5 != null" >
+        #{xqUrlMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="xqTitle != null" >
+        #{xqTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="xqPudate != null" >
+        #{xqPudate,jdbcType=DATE},
+      </if>
+      <if test="zdName != null" >
+        #{zdName,jdbcType=VARCHAR},
+      </if>
+      <if test="lmName != null" >
+        #{lmName,jdbcType=VARCHAR},
+      </if>
+      <if test="sjfl != null" >
+        #{sjfl,jdbcType=VARCHAR},
+      </if>
+      <if test="loadTime != null" >
+        #{loadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xqAurhor != null" >
+        #{xqAurhor,jdbcType=VARCHAR},
+      </if>
+      <if test="xqExtendOne != null" >
+        #{xqExtendOne,jdbcType=VARCHAR},
+      </if>
+      <if test="xqExtendTwo != null" >
+        #{xqExtendTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="keyWord != null" >
+        #{keyWord,jdbcType=VARCHAR},
+      </if>
+      <if test="isSimtitle != null" >
+        #{isSimtitle,jdbcType=INTEGER},
+      </if>
+      <if test="isExteurl != null" >
+        #{isExteurl,jdbcType=INTEGER},
+      </if>
+      <if test="lmTop != null" >
+        #{lmTop,jdbcType=VARCHAR},
+      </if>
+      <if test="sta != null" >
+        #{sta,jdbcType=INTEGER},
+      </if>
+      <if test="xqContent != null" >
+        #{xqContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="xqExtendThree != null" >
+        #{xqExtendThree,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="xqExtendFour != null" >
+        #{xqExtendFour,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="xqExtendFive != null" >
+        #{xqExtendFive,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="xqExtendSixe != null" >
+        #{xqExtendSixe,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="lcw.po.CrawlerXqExample" resultType="java.lang.Integer" >
+    select count(*) from crawler_xq
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update crawler_xq
+    <set >
+      <if test="record.xqId != null" >
+        XQ_ID = #{record.xqId,jdbcType=BIGINT},
+      </if>
+      <if test="record.xqUrl != null" >
+        XQ_URL = #{record.xqUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xqUrlMd5 != null" >
+        XQ_URL_MD5 = #{record.xqUrlMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xqTitle != null" >
+        XQ_TITLE = #{record.xqTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xqPudate != null" >
+        XQ_PUDATE = #{record.xqPudate,jdbcType=DATE},
+      </if>
+      <if test="record.zdName != null" >
+        ZD_NAME = #{record.zdName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lmName != null" >
+        LM_NAME = #{record.lmName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sjfl != null" >
+        SJFL = #{record.sjfl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loadTime != null" >
+        LOAD_TIME = #{record.loadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.xqAurhor != null" >
+        XQ_AURHOR = #{record.xqAurhor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xqExtendOne != null" >
+        XQ_EXTEND_ONE = #{record.xqExtendOne,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xqExtendTwo != null" >
+        XQ_EXTEND_TWO = #{record.xqExtendTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keyWord != null" >
+        KEY_WORD = #{record.keyWord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isSimtitle != null" >
+        IS_SIMTITLE = #{record.isSimtitle,jdbcType=INTEGER},
+      </if>
+      <if test="record.isExteurl != null" >
+        IS_EXTEURL = #{record.isExteurl,jdbcType=INTEGER},
+      </if>
+      <if test="record.lmTop != null" >
+        LM_TOP = #{record.lmTop,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sta != null" >
+        STA = #{record.sta,jdbcType=INTEGER},
+      </if>
+      <if test="record.xqContent != null" >
+        XQ_CONTENT = #{record.xqContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.xqExtendThree != null" >
+        XQ_EXTEND_THREE = #{record.xqExtendThree,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.xqExtendFour != null" >
+        XQ_EXTEND_FOUR = #{record.xqExtendFour,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.xqExtendFive != null" >
+        XQ_EXTEND_FIVE = #{record.xqExtendFive,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.xqExtendSixe != null" >
+        XQ_EXTEND_SIXE = #{record.xqExtendSixe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update crawler_xq
+    set XQ_ID = #{record.xqId,jdbcType=BIGINT},
+      XQ_URL = #{record.xqUrl,jdbcType=VARCHAR},
+      XQ_URL_MD5 = #{record.xqUrlMd5,jdbcType=VARCHAR},
+      XQ_TITLE = #{record.xqTitle,jdbcType=VARCHAR},
+      XQ_PUDATE = #{record.xqPudate,jdbcType=DATE},
+      ZD_NAME = #{record.zdName,jdbcType=VARCHAR},
+      LM_NAME = #{record.lmName,jdbcType=VARCHAR},
+      SJFL = #{record.sjfl,jdbcType=VARCHAR},
+      LOAD_TIME = #{record.loadTime,jdbcType=TIMESTAMP},
+      XQ_AURHOR = #{record.xqAurhor,jdbcType=VARCHAR},
+      XQ_EXTEND_ONE = #{record.xqExtendOne,jdbcType=VARCHAR},
+      XQ_EXTEND_TWO = #{record.xqExtendTwo,jdbcType=VARCHAR},
+      KEY_WORD = #{record.keyWord,jdbcType=VARCHAR},
+      IS_SIMTITLE = #{record.isSimtitle,jdbcType=INTEGER},
+      IS_EXTEURL = #{record.isExteurl,jdbcType=INTEGER},
+      LM_TOP = #{record.lmTop,jdbcType=VARCHAR},
+      STA = #{record.sta,jdbcType=INTEGER},
+      XQ_CONTENT = #{record.xqContent,jdbcType=LONGVARCHAR},
+      XQ_EXTEND_THREE = #{record.xqExtendThree,jdbcType=LONGVARCHAR},
+      XQ_EXTEND_FOUR = #{record.xqExtendFour,jdbcType=LONGVARCHAR},
+      XQ_EXTEND_FIVE = #{record.xqExtendFive,jdbcType=LONGVARCHAR},
+      XQ_EXTEND_SIXE = #{record.xqExtendSixe,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update crawler_xq
+    set XQ_ID = #{record.xqId,jdbcType=BIGINT},
+      XQ_URL = #{record.xqUrl,jdbcType=VARCHAR},
+      XQ_URL_MD5 = #{record.xqUrlMd5,jdbcType=VARCHAR},
+      XQ_TITLE = #{record.xqTitle,jdbcType=VARCHAR},
+      XQ_PUDATE = #{record.xqPudate,jdbcType=DATE},
+      ZD_NAME = #{record.zdName,jdbcType=VARCHAR},
+      LM_NAME = #{record.lmName,jdbcType=VARCHAR},
+      SJFL = #{record.sjfl,jdbcType=VARCHAR},
+      LOAD_TIME = #{record.loadTime,jdbcType=TIMESTAMP},
+      XQ_AURHOR = #{record.xqAurhor,jdbcType=VARCHAR},
+      XQ_EXTEND_ONE = #{record.xqExtendOne,jdbcType=VARCHAR},
+      XQ_EXTEND_TWO = #{record.xqExtendTwo,jdbcType=VARCHAR},
+      KEY_WORD = #{record.keyWord,jdbcType=VARCHAR},
+      IS_SIMTITLE = #{record.isSimtitle,jdbcType=INTEGER},
+      IS_EXTEURL = #{record.isExteurl,jdbcType=INTEGER},
+      LM_TOP = #{record.lmTop,jdbcType=VARCHAR},
+      STA = #{record.sta,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="lcw.po.CrawlerXqWithBLOBs" >
+    update crawler_xq
+    <set >
+      <if test="xqUrl != null" >
+        XQ_URL = #{xqUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="xqUrlMd5 != null" >
+        XQ_URL_MD5 = #{xqUrlMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="xqTitle != null" >
+        XQ_TITLE = #{xqTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="xqPudate != null" >
+        XQ_PUDATE = #{xqPudate,jdbcType=DATE},
+      </if>
+      <if test="zdName != null" >
+        ZD_NAME = #{zdName,jdbcType=VARCHAR},
+      </if>
+      <if test="lmName != null" >
+        LM_NAME = #{lmName,jdbcType=VARCHAR},
+      </if>
+      <if test="sjfl != null" >
+        SJFL = #{sjfl,jdbcType=VARCHAR},
+      </if>
+      <if test="loadTime != null" >
+        LOAD_TIME = #{loadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xqAurhor != null" >
+        XQ_AURHOR = #{xqAurhor,jdbcType=VARCHAR},
+      </if>
+      <if test="xqExtendOne != null" >
+        XQ_EXTEND_ONE = #{xqExtendOne,jdbcType=VARCHAR},
+      </if>
+      <if test="xqExtendTwo != null" >
+        XQ_EXTEND_TWO = #{xqExtendTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="keyWord != null" >
+        KEY_WORD = #{keyWord,jdbcType=VARCHAR},
+      </if>
+      <if test="isSimtitle != null" >
+        IS_SIMTITLE = #{isSimtitle,jdbcType=INTEGER},
+      </if>
+      <if test="isExteurl != null" >
+        IS_EXTEURL = #{isExteurl,jdbcType=INTEGER},
+      </if>
+      <if test="lmTop != null" >
+        LM_TOP = #{lmTop,jdbcType=VARCHAR},
+      </if>
+      <if test="sta != null" >
+        STA = #{sta,jdbcType=INTEGER},
+      </if>
+      <if test="xqContent != null" >
+        XQ_CONTENT = #{xqContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="xqExtendThree != null" >
+        XQ_EXTEND_THREE = #{xqExtendThree,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="xqExtendFour != null" >
+        XQ_EXTEND_FOUR = #{xqExtendFour,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="xqExtendFive != null" >
+        XQ_EXTEND_FIVE = #{xqExtendFive,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="xqExtendSixe != null" >
+        XQ_EXTEND_SIXE = #{xqExtendSixe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where XQ_ID = #{xqId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="lcw.po.CrawlerXqWithBLOBs" >
+    update crawler_xq
+    set XQ_URL = #{xqUrl,jdbcType=VARCHAR},
+      XQ_URL_MD5 = #{xqUrlMd5,jdbcType=VARCHAR},
+      XQ_TITLE = #{xqTitle,jdbcType=VARCHAR},
+      XQ_PUDATE = #{xqPudate,jdbcType=DATE},
+      ZD_NAME = #{zdName,jdbcType=VARCHAR},
+      LM_NAME = #{lmName,jdbcType=VARCHAR},
+      SJFL = #{sjfl,jdbcType=VARCHAR},
+      LOAD_TIME = #{loadTime,jdbcType=TIMESTAMP},
+      XQ_AURHOR = #{xqAurhor,jdbcType=VARCHAR},
+      XQ_EXTEND_ONE = #{xqExtendOne,jdbcType=VARCHAR},
+      XQ_EXTEND_TWO = #{xqExtendTwo,jdbcType=VARCHAR},
+      KEY_WORD = #{keyWord,jdbcType=VARCHAR},
+      IS_SIMTITLE = #{isSimtitle,jdbcType=INTEGER},
+      IS_EXTEURL = #{isExteurl,jdbcType=INTEGER},
+      LM_TOP = #{lmTop,jdbcType=VARCHAR},
+      STA = #{sta,jdbcType=INTEGER},
+      XQ_CONTENT = #{xqContent,jdbcType=LONGVARCHAR},
+      XQ_EXTEND_THREE = #{xqExtendThree,jdbcType=LONGVARCHAR},
+      XQ_EXTEND_FOUR = #{xqExtendFour,jdbcType=LONGVARCHAR},
+      XQ_EXTEND_FIVE = #{xqExtendFive,jdbcType=LONGVARCHAR},
+      XQ_EXTEND_SIXE = #{xqExtendSixe,jdbcType=LONGVARCHAR}
+    where XQ_ID = #{xqId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="lcw.po.CrawlerXq" >
+    update crawler_xq
+    set XQ_URL = #{xqUrl,jdbcType=VARCHAR},
+      XQ_URL_MD5 = #{xqUrlMd5,jdbcType=VARCHAR},
+      XQ_TITLE = #{xqTitle,jdbcType=VARCHAR},
+      XQ_PUDATE = #{xqPudate,jdbcType=DATE},
+      ZD_NAME = #{zdName,jdbcType=VARCHAR},
+      LM_NAME = #{lmName,jdbcType=VARCHAR},
+      SJFL = #{sjfl,jdbcType=VARCHAR},
+      LOAD_TIME = #{loadTime,jdbcType=TIMESTAMP},
+      XQ_AURHOR = #{xqAurhor,jdbcType=VARCHAR},
+      XQ_EXTEND_ONE = #{xqExtendOne,jdbcType=VARCHAR},
+      XQ_EXTEND_TWO = #{xqExtendTwo,jdbcType=VARCHAR},
+      KEY_WORD = #{keyWord,jdbcType=VARCHAR},
+      IS_SIMTITLE = #{isSimtitle,jdbcType=INTEGER},
+      IS_EXTEURL = #{isExteurl,jdbcType=INTEGER},
+      LM_TOP = #{lmTop,jdbcType=VARCHAR},
+      STA = #{sta,jdbcType=INTEGER}
+    where XQ_ID = #{xqId,jdbcType=BIGINT}
+  </update>
+</mapper>
